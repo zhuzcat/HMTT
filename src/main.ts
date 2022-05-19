@@ -13,6 +13,12 @@ import {
   Icon,
   Tab,
   Tabs,
+  Cell,
+  List,
+  PullRefresh,
+  ActionSheet,
+  Popup,
+  Badge,
 } from "vant";
 
 import router from "@/routes";
@@ -29,4 +35,10 @@ app.use(Button);
 app.use(Icon);
 app.use(Tab);
 app.use(Tabs);
+app.use(Cell);
+app.use(List);
+app.use(ActionSheet);
+app.use(PullRefresh);
+app.use(Popup);
+app.use(Badge);
 app.use(router).mount("#app");

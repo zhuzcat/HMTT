@@ -1,6 +1,6 @@
-import LoginVue from "@/views/Login.vue";
-import HomeVue from "@/views/Home.vue";
-import UserVue from "@/views/User.vue";
+import LoginVue from "@/views/Login/Login.vue";
+import HomeVue from "@/views/Home/Home.vue";
+import UserVue from "@/views/User/User.vue";
 import LayoutVue from "@/views/Layout.vue";
 
 export default [
