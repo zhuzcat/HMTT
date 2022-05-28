@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Toast } from "vant";
-import ArticleItemVue from "./ArticleItem.vue";
+import ArticleItemVue from "@/components/ArticleItem.vue";
 import { reqArticleList, reqUnLike, reqReport } from "@/api";
 // 底部加载的loading的状态
 const loading = ref(false);
@@ -115,6 +115,7 @@ getArticleList(props.cid).catch(() => {
         :item="item"
         @unlike="UnLike"
         @report="reportArticle"
+        :crossShow="true"
       />
     </van-list>
   </van-pull-refresh>

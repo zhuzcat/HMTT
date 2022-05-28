@@ -92,7 +92,10 @@ function updateActiveId(id: number) {
         v-for="(channel, index) in props.userChannels"
         :key="channel.id"
       >
-        <van-badge color="#ccc" :offset="['-0.1rem', '0.15rem']">
+        <van-badge
+          :color="editState.iconShow ? '#CCC' : '#fff'"
+          :offset="['-0.1rem', '0.15rem']"
+        >
           <span
             :style="{ color: activeId == channel.id ? '#fc6627' : '#000' }"
             @click="updateActiveId(channel.id)"

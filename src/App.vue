@@ -5,7 +5,14 @@ const themeVars = theme;
 
 <template>
   <VanConfigProvider :theme-vars="themeVars">
-    <router-view></router-view>
+    <router-view v-slot="{ Component, route }">
+      <keep-alive>
+        <component
+          :is="Component"
+          :key="route.meta.keepAlive ? route.path : Date.now()"
+        />
+      </keep-alive>
+    </router-view>
   </VanConfigProvider>
 </template>
 

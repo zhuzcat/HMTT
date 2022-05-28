@@ -5,7 +5,11 @@ const active = ref(0);
 
 <template>
   <!-- 二级路由区域 -->
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
   <!-- 底部导航区域 -->
   <van-tabbar v-model="active" route>
     <van-tabbar-item icon="home-o" to="/home">首页</van-tabbar-item>

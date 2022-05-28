@@ -1,28 +1,57 @@
-import LoginVue from "@/views/Login/Login.vue";
-import HomeVue from "@/views/Home/Home.vue";
-import UserVue from "@/views/User/User.vue";
-import LayoutVue from "@/views/Layout.vue";
-
 export default [
   {
     path: "/login",
     name: "Login",
-    component: LoginVue,
+    component: () => import("@/views/Login/Login.vue"),
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: () => import("@/views/Search/Search.vue"),
+  },
+  {
+    path: "/search/:keyword",
+    name: "SearchResult",
+    component: () => import("@/views/Search/SearchResult.vue"),
+  },
+  {
+    path: "/detail/:id",
+    name: "Detail",
+    component: () => import("@/views/Detail/Detail.vue"),
+  },
+  {
+    path: "/edituser",
+    name: "EditUser",
+    meta: {
+      keepAlive: true,
+    },
+    component: () => import("@/views/User/EditUser.vue"),
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    meta: {
+      keepAlive: true,
+    },
+    component: () => import("@/views/Chat/Chat.vue"),
   },
   {
     path: "/",
-    component: LayoutVue,
+    component: () => import("@/views/Layout.vue"),
+    meta: {
+      keepAlive: true,
+    },
     redirect: "/home",
     children: [
       {
         path: "home",
         name: "Home",
-        component: HomeVue,
+        component: () => import("@/views/Home/Home.vue"),
       },
       {
         path: "user",
         name: "User",
-        component: UserVue,
+        component: () => import("@/views/User/User.vue"),
       },
     ],
   },

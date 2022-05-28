@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
 import { timeAgo } from "@/utils/date";
 import { firstActions, secondActions } from "@/config/action";
+const router = useRouter();
 // 接受文章列表的数据
-const { item } = defineProps<{
+const { item, crossShow } = defineProps<{
   item: {
     [propName: string]: any;
   };
+  crossShow: boolean;
 }>();
 // 接受发送请求的方法
 const emits = defineEmits<{
@@ -53,23 +56,27 @@ function handleCancel() {
 </script>
 
 <template>
-  <van-cell>
+  <van-cell @click="router.push(`/detail/${item.art_id}`)">
     <template #title>
       <div class="title-box">
         <span>{{ item.title }}</span>
-        <img
+        <van-image
+          :src="item.cover!.images[0]"
           v-if="item.cover!.type === 1"
           class="thumb"
-          :src="item.cover!.images[0]"
-        />
+        >
+          <template v-slot:error>加载失败</template>
+        </van-image>
       </div>
       <div class="thumb-box" v-if="item.cover!.type === 3">
-        <img
+        <van-image
           class="thumb"
           :src="img"
           v-for="(img, index) in item.cover!.images"
           :key="index"
-        />
+        >
+          <template v-slot:error>加载失败</template>
+        </van-image>
       </div>
     </template>
 
@@ -80,7 +87,11 @@ function handleCancel() {
           <span>{{ item.comm_count }} 评论</span>
           <span>{{ timeAgo(item.pubdate) }}</span>
         </div>
-        <van-icon name="cross" @click="showReport"></van-icon>
+        <van-icon
+          name="cross"
+          @click.stop="showReport"
+          v-if="crossShow"
+        ></van-icon>
       </div>
     </template>
   </van-cell>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { Toast } from "vant";
+import { useRouter } from "vue-router";
 import {
   reqUserChannels,
   reqAllChanels,
@@ -9,6 +10,7 @@ import {
 } from "@/api";
 import ArticleListVue from "./components/ArticleList.vue";
 import ChannelEditVue from "./components/ChannelEdit.vue";
+const router = useRouter();
 const activeName = ref(0);
 const editShow = ref(false);
 const allChannels = ref<Array<{ id?: string }>>([]);
@@ -75,11 +77,13 @@ async function deleteMyChannel(channelObj: {}) {
 }
 // 展示添加的频道
 function pushChannel(channelObj: {}) {
+  // 先将用户选择的频道展示刀页面当中
   const channels = userChannels.value.channels;
   channels.push(channelObj);
 }
 // 添加频道的回调
 async function addMyChannel(channels: Array<{ id?: number }>) {
+  // 映射出后台需要的数据
   const data = channels.map((channel, index) => {
     return {
       id: channel.id,
@@ -92,6 +96,10 @@ async function addMyChannel(channels: Array<{ id?: number }>) {
   } else {
     Toast.fail("添加失败");
   }
+}
+// 跳转到搜索页面
+function toSearch() {
+  router.push("/search");
 }
 // 获取我的频道列表
 getUserChannels().catch(() => {
@@ -111,7 +119,7 @@ getAllChannels().catch(() => {
       <img src="@/assets/logo.png" alt="" class="logo" />
     </template>
     <template #right>
-      <van-icon name="search" size="0.48rem" color="#fff" />
+      <van-icon name="search" size="0.48rem" color="#fff" @click="toSearch" />
     </template>
   </van-nav-bar>
   <!-- tab栏 -->

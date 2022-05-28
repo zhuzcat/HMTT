@@ -54,7 +54,7 @@ import { useRouter } from "vue-router";
 import { loginApi } from "@/api";
 import { setToken } from "@/utils/token";
 // 表单的状态
-const mobile = ref("13888888888");
+const mobile = ref("");
 const code = ref("");
 const isLoading = ref(false);
 // 创建router实例
@@ -80,6 +80,7 @@ async function onSubmit() {
     isLoading.value = false;
     // 登录成功将token保存到localStorage
     setToken(result.data.data.token);
+    localStorage.setItem("refresh_token", result.data.data.refresh_token);
     // 提示登录成功
     Notify({
       message: "登录成功",

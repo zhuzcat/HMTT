@@ -44,3 +44,134 @@ export const reqDeleteUserChannel = (target: number) =>
     url: `/v1_0/user/channels/${target}`,
     method: "DELETE",
   });
+// 获取搜索建议
+export const reqSearchSuggest = (keyword: string) =>
+  request({
+    url: "/v1_0/suggestion",
+    method: "GET",
+    params: {
+      q: keyword,
+    },
+  });
+// 获取搜索结果
+export const reqSearchResult = (params: {}) =>
+  request({
+    url: "/v1_0/search",
+    method: "GET",
+    params,
+  });
+// 获取文章详情
+export const reqArticleDetail = (id: string) =>
+  request({
+    url: `/v1_0/articles/${id}`,
+    method: "GET",
+  });
+// 关注用户
+export const reqFollowUser = (target: string) =>
+  request({
+    url: "/v1_0/user/followings",
+    method: "POST",
+    data: {
+      target,
+    },
+  });
+// 取消关注用户
+export const reqUnFollowUser = (target: string) =>
+  request({
+    url: `/v1_0/user/followings/${target}`,
+    method: "DELETE",
+  });
+// 对文章点赞
+export const reqLikeArticle = (target: number) =>
+  request({
+    url: "/v1_0/article/likings",
+    method: "POST",
+    data: {
+      target,
+    },
+  });
+// 取消对文章点赞
+export const reqUnLikeArticle = (target: number) =>
+  request({
+    url: `/v1_0/article/likings/${target}`,
+    method: "DELETE",
+  });
+// 收藏文章
+export const reqCollectArticle = (target: number) =>
+  request({
+    url: "/v1_0/article/collections",
+    method: "POST",
+    data: {
+      target,
+    },
+  });
+// 取消收藏文章
+export const reqUnCollectArticle = (target: number) =>
+  request({
+    url: `/v1_0/article/collections/${target}`,
+    method: "DELETE",
+  });
+// 获取文章评论
+export const reqArticleComment = (params: {}) =>
+  request({
+    url: "/v1_0/comments",
+    method: "GET",
+    params,
+  });
+// 发表评论
+export const reqAddComment = (data: {}) =>
+  request({
+    url: "/v1_0/comments",
+    method: "POST",
+    data,
+  });
+// 对评论点赞
+export const reqLikeComment = (target: number) =>
+  request({
+    url: "/v1_0/comment/likings",
+    method: "POST",
+    data: {
+      target,
+    },
+  });
+// 对评论取消点赞
+export const reqUnLikeComment = (target: number) =>
+  request({
+    url: `/v1_0/comment/likings/${target}`,
+    method: "DELETE",
+  });
+// 获取用户自己信息
+export const reqUserInfo = () =>
+  request({
+    url: "/v1_0/user",
+    method: "GET",
+  });
+// 获取用户个人资料
+export const reqUserProfile = () =>
+  request({
+    url: "/v1_0/user/profile",
+    method: "GET",
+  });
+// 修改用户头像
+export const reqUpdatePhoto = (data: {}) =>
+  request({
+    url: "/v1_0/user/photo",
+    method: "PATCH",
+    data,
+  });
+// 编辑用户个人资料
+export const reqUpdateProfile = (data: {}) =>
+  request({
+    url: "/v1_0/user/profile",
+    method: "PATCH",
+    data,
+  });
+// 刷新用户token
+export const reqRefreshToken = () =>
+  request({
+    url: "/v1_0/authorizations",
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("refresh_token")}`,
+    },
+  });
