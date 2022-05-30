@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Notify, Toast } from "vant";
+import { Notify } from "vant";
 import router from "@/routes";
 import { reqRefreshToken } from "@/api";
 import { getToken, setToken, removeToken } from "./token";
@@ -51,7 +51,7 @@ request.interceptors.response.use(
         message: "登录失效请重新登录",
       });
       removeToken();
-      router.push("/login");
+      router.replace(`/login?redirect=${router.currentRoute.value.fullPath}`);
     }
     // 当请求失败的时候做一些处理
     // 对响应错误做一些处理

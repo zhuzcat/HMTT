@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onActivated, reactive, nextTick } from "vue";
 import { Toast } from "vant";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute, onBeforeRouteLeave } from "vue-router";
 import {
   reqUserChannels,
   reqAllChanels,
@@ -11,9 +11,11 @@ import {
 import ArticleListVue from "./components/ArticleList.vue";
 import ChannelEditVue from "./components/ChannelEdit.vue";
 const router = useRouter();
+const route = useRoute();
 const activeName = ref(0);
 const editShow = ref(false);
 const allChannels = ref<Array<{ id?: string }>>([]);
+const scroll = reactive<{ [propName: string]: number }>({});
 // 定义频道列表
 const userChannels = ref<{ channels: Array<{ id?: string; name?: string }> }>({
   channels: [],
@@ -32,6 +34,12 @@ const selectChannels = computed(() => {
     });
   }
 });
+// 修改选中列表的回调
+const changeChannel = async () => {
+  await nextTick();
+  document.documentElement.scrollTop = scroll[activeName.value];
+  document.body.scrollTop = scroll[activeName.value];
+};
 // 获取用户频道
 async function getUserChannels() {
   const result = await reqUserChannels();
@@ -101,6 +109,11 @@ async function addMyChannel(channels: Array<{ id?: number }>) {
 function toSearch() {
   router.push("/search");
 }
+// 保存滚动条位置的函数
+function scrollFn() {
+  scroll[activeName.value] =
+    document.documentElement.scrollTop || document.body.scrollTop;
+}
 // 获取我的频道列表
 getUserChannels().catch(() => {
   // 如果获取失败，则提醒获取失败
@@ -109,6 +122,16 @@ getUserChannels().catch(() => {
 // 获取全部频道列表
 getAllChannels().catch(() => {
   Toast("获取频道列表失败");
+});
+onActivated(() => {
+  if (route.path === "/home") {
+    changeChannel();
+    // 监听滚动条的事件
+    window.addEventListener("scroll", scrollFn);
+  }
+});
+onBeforeRouteLeave(() => {
+  window.removeEventListener("scroll", scrollFn);
 });
 </script>
 
@@ -128,7 +151,7 @@ getAllChannels().catch(() => {
       v-model:active="activeName"
       sticky
       offset-top="1.226667rem"
-      animated
+      @change="changeChannel"
     >
       <van-tab
         :title="channel.name"

@@ -1,0 +1,59 @@
+import {
+  NavBar,
+  ConfigProvider,
+  Form,
+  Field,
+  CellGroup,
+  Button,
+  Tabbar,
+  TabbarItem,
+  Icon,
+  Tab,
+  Tabs,
+  Cell,
+  List,
+  PullRefresh,
+  ActionSheet,
+  Popup,
+  Badge,
+  Search,
+  Image,
+  ActionBar,
+  ActionBarIcon,
+  Empty,
+  Picker,
+  ShareSheet,
+  DatetimePicker,
+  Lazyload,
+} from "vant";
+export default {
+  // 导出的对象必须是一个函数
+  install(app: any, options: any) {
+    app.use(Lazyload);
+    app.use(Tabbar);
+    app.use(TabbarItem);
+    app.use(NavBar);
+    app.use(ConfigProvider);
+    app.use(Form);
+    app.use(Field);
+    app.use(CellGroup);
+    app.use(Button);
+    app.use(Icon);
+    app.use(Tab);
+    app.use(Tabs);
+    app.use(Cell);
+    app.use(List);
+    app.use(ActionSheet);
+    app.use(PullRefresh);
+    app.use(Popup);
+    app.use(Badge);
+    app.use(Search);
+    app.use(Image);
+    app.use(ActionBar);
+    app.use(ActionBarIcon);
+    app.use(Empty);
+    app.use(ShareSheet);
+    app.use(Picker);
+    app.use(DatetimePicker);
+  },
+};

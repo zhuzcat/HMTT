@@ -74,6 +74,7 @@ function handleCancel() {
           :src="img"
           v-for="(img, index) in item.cover!.images"
           :key="index"
+          lazy-load
         >
           <template v-slot:error>加载失败</template>
         </van-image>

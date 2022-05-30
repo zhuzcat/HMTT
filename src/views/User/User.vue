@@ -23,15 +23,15 @@ const { userInfo } = user;
       </a>
     </div>
     <div class="info-row">
-      <div class="info-col">
+      <div class="info-col" @click="router.push('/mystate')">
         <p>{{ userInfo.art_count }}</p>
         <p>动态</p>
       </div>
-      <div class="info-col">
+      <div class="info-col" @click="router.push('/follow/following')">
         <p>{{ userInfo.follow_count }}</p>
         <p>关注</p>
       </div>
-      <div class="info-col">
+      <div class="info-col" @click="router.push('/follow/fans')">
         <p>{{ userInfo.fans_count }}</p>
         <p>粉丝</p>
       </div>
@@ -41,19 +41,19 @@ const { userInfo } = user;
       </div>
     </div>
     <div class="user-link info-row">
-      <div class="info-col">
+      <div class="info-col" @click="router.push('/notify')">
         <van-icon name="envelop-o" size="0.6rem" />
         <p class="link">消息通知</p>
       </div>
-      <div class="info-col">
+      <div class="info-col" @click="router.push('/collections')">
         <van-icon name="like-o" size="0.6rem" />
         <p class="link">我的收藏</p>
       </div>
-      <div class="info-col">
+      <div class="info-col" @click="router.push('/read')">
         <van-icon name="underway-o" size="0.6rem" />
         <p class="link">阅读历史</p>
       </div>
-      <div class="info-col">
+      <div class="info-col" @click="router.push('/mywork')">
         <van-icon name="edit" size="0.6rem" />
         <p class="link">我的作品</p>
       </div>

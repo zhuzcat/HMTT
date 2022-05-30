@@ -1,3 +1,59 @@
+<script setup lang="ts">
+import { Notify } from "vant";
+import { Toast } from "vant";
+import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { loginApi } from "@/api";
+import { setToken } from "@/utils/token";
+// 表单的状态
+const mobile = ref("");
+const code = ref("");
+const isLoading = ref(false);
+// 创建router实例
+const router = useRouter();
+const route = useRoute();
+// 获取验证码的方法
+function getCode() {
+  code.value = "246810";
+  Toast("验证码已发送为246810");
+}
+
+// 提交登录表单的方法
+async function onSubmit() {
+  // 将isLoading设置为true，表示正在提交
+  isLoading.value = true;
+  // 发送登录请求
+  try {
+    const result = await loginApi({
+      mobile: mobile.value,
+      code: code.value,
+    });
+    // 将isLoading设置为false
+    isLoading.value = false;
+    // 登录成功将token保存到localStorage
+    setToken(result.data.data.token);
+    localStorage.setItem("refresh_token", result.data.data.refresh_token);
+    // 提示登录成功
+    Notify({
+      message: "登录成功",
+      duration: 1500,
+      type: "success",
+    });
+    // 跳转到首页
+    router.replace((route.query.redirect as string) || "/");
+  } catch (err) {
+    // 将isLoading设置为false
+    isLoading.value = false;
+    // 提示登录失败
+    Notify({
+      message: "登录失败",
+      duration: 1500,
+      type: "danger",
+    });
+  }
+}
+</script>
+
 <template>
   <van-nav-bar title="黑马头条-登录" />
   <van-form @submit="onSubmit" :style="{ marginTop: '15px' }">
@@ -45,61 +101,5 @@
     </div>
   </van-form>
 </template>
-
-<script setup lang="ts">
-import { Notify } from "vant";
-import { Toast } from "vant";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { loginApi } from "@/api";
-import { setToken } from "@/utils/token";
-// 表单的状态
-const mobile = ref("");
-const code = ref("");
-const isLoading = ref(false);
-// 创建router实例
-const router = useRouter();
-
-// 获取验证码的方法
-function getCode() {
-  code.value = "246810";
-  Toast("验证码已发送为246810");
-}
-
-// 提交登录表单的方法
-async function onSubmit() {
-  // 将isLoading设置为true，表示正在提交
-  isLoading.value = true;
-  // 发送登录请求
-  try {
-    const result = await loginApi({
-      mobile: mobile.value,
-      code: code.value,
-    });
-    // 将isLoading设置为false
-    isLoading.value = false;
-    // 登录成功将token保存到localStorage
-    setToken(result.data.data.token);
-    localStorage.setItem("refresh_token", result.data.data.refresh_token);
-    // 提示登录成功
-    Notify({
-      message: "登录成功",
-      duration: 1500,
-      type: "success",
-    });
-    // 跳转到首页
-    router.replace("/home");
-  } catch (err) {
-    // 将isLoading设置为false
-    isLoading.value = false;
-    // 提示登录失败
-    Notify({
-      message: "登录失败",
-      duration: 1500,
-      type: "danger",
-    });
-  }
-}
-</script>
 
 <style scoped></style>

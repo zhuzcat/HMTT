@@ -175,3 +175,59 @@ export const reqRefreshToken = () =>
       Authorization: `Bearer ${localStorage.getItem("refresh_token")}`,
     },
   });
+// 获取关注列表
+export const reqFollowing = (params: {}) =>
+  request({
+    url: "/v1_0/user/followings",
+    method: "GET",
+    params,
+  });
+// 获取粉丝列表
+export const reqFollower = (params: {}) =>
+  request({
+    url: "/v1_0/user/followers",
+    method: "GET",
+    params,
+  });
+// 获取数据
+export const reqFigure = () =>
+  request({
+    url: "/v1_0/user/figure",
+    method: "GET",
+  });
+// 获取用户的作品
+export const reqUserArticle = (params: {}) =>
+  request({
+    url: "/v1_0/user/articles",
+    method: "GET",
+    params,
+  });
+// 获取公告的列表
+export const reqAnnouncement = (params: {}) =>
+  request({
+    url: "/v1_0/announcements",
+    method: "GET",
+    params,
+  });
+// 获取通知信息
+export const reqNotify = (params: {}) =>
+  request({
+    url: "/v1_0/user/notify",
+    method: "GET",
+    params,
+  });
+// 获取我的收藏
+export const reqMyCollect = (params: {}) =>
+  request({
+    url: "/v1_0/article/collections",
+    method: "GET",
+    params,
+  });
+//
+// 获取用户阅读历史
+export const reqMyRead = (params: {}) =>
+  request({
+    url: "/v1_0/user/histories",
+    method: "GET",
+    params,
+  });

@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
         >
       </div>
       <!-- 主要内容 -->
-      <div class="content" v-html="articleDetail.content" v-highlight></div>
+      <div class="content" v-html="articleDetail.content"></div>
     </div>
     <!-- 评论组件 -->
     <CommentListVue
