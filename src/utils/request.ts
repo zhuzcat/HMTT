@@ -6,7 +6,7 @@ import { getToken, setToken, removeToken } from "./token";
 
 // 创建axios实例
 const request = axios.create({
-  baseURL: "http://toutiao.itheima.net",
+  baseURL: "http://geek.itheima.net",
   timeout: 10000,
 });
 

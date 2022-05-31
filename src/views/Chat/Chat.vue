@@ -35,7 +35,7 @@ const send = () => {
 };
 // 建立 socket 链接
 function connect() {
-  socket = io("http://toutiao.itheima.net", {
+  socket = io("http://geek.itheima.net", {
     query: {
       token: getToken(),
     },
